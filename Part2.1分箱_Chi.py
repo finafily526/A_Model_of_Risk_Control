@@ -120,6 +120,17 @@ def SplitData(df, col, numOfSplit, special_attribute=[]):
     splitPoint = sorted(list(set(splitPoint)))
     return splitPoint # col中“切分点“右边第一个值
 
+def AssignGroup(x, bin):
+    N = len(bin)
+    if x<=min(bin):
+        return min(bin)
+    elif x>max(bin):
+        return 10e10
+    else:
+        for i in range(N-1):
+            if bin[i] < x <= bin[i+1]:
+                return bin[i+1]
+
 def ChiMerge(df, col, target, max_interval=5,special_attribute=[],minBinPcnt=0):
     '''
     :param df: 包含目标变量与分箱属性的数据框
